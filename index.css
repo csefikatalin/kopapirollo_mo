@@ -1,127 +1,103 @@
 body {
-    max-width: 600px;
-    margin: auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
+  max-width: 600px;
+  margin: auto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
 }
 
 header {
-    display: flex;
-    padding: 20px;
-    justify-content: space-between;
-    align-items: center;
-    background: #ffffff;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    border-radius: 12px;
-    margin-top: 20px;
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  margin-top: 20px;
 }
 
 button {
-    cursor: pointer;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    background-color: #4f46e5;
-    color: white;
-    font-weight: bold;
-    transition: background-color 0.2s, transform 0.1s;
+  cursor: pointer;
+  padding: 6px 25px;
+  font-size: 16px;
+  border: 10px outset     #0a063a;
+  border-radius: 8px;
+  background-color: #312ab0;
+  color: white;
+  font-weight: bold;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
+    display: flex;
+  align-items: center;
+  text-align: center;
+
 }
 
 button:hover {
-    background-color: #4338ca;
-    transform: scale(1.05);
+     border: 10px inset     #0d0842;
+  background-color: #4338ca;
+  transform: scale(1.05);
 }
 
 .jatekter {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 20px;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .gombok {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
 }
 
 .gombok button {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 18px;
+      padding: 5px;
+  border-radius: 50%;
+  font-size: 18px;
 }
-#gep,#jatekos{
-    display:flex;
-    flex-direction: column;
-    justify-content: space-between;
+#gep,
+#jatekos {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .kep {
-    width: 100%;
-    height: 160px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px dashed #e5e7eb;
-    border-radius: 10px;
-    background: #f9fafb;
-    overflow: hidden;
+  width: 100%;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #e5e7eb;
+  border-radius: 10px;
+  background: #f9fafb;
+  overflow: hidden;
 }
 
 img {
-    max-height: 80%;
-    object-fit: contain;
+  max-height: 80%;
+  object-fit: contain;
 }
 
-#jatekos, #gep {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#jatekos,
+#gep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #gyoztes {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-/* =========================================
-   LÁTVÁNYOS ANIMÁCIÓK
-   ========================================= */
-
-/* 1. Keverési / Rázási animáció (amikor a gép vagy a játékos "készül" a lépésre) */
-@keyframes shakeAndJump {
-    0% { transform: translateY(0) rotate(0deg); }
-    25% { transform: translateY(-15px) rotate(-15deg); }
-    50% { transform: translateY(0) rotate(0deg); }
-    75% { transform: translateY(-15px) rotate(15deg); }
-    100% { transform: translateY(0) rotate(0deg); }
-}
-
-.anim-harc {
-    animation: shakeAndJump 0.4s ease-in-out infinite;
-}
-
-/* 2. Bukkanás / Megjelenési animáció (amikor bekerül a végső kéz) */
-@keyframes popIn {
-    0% { transform: scale(0.3); opacity: 0; }
-    70% { transform: scale(1.1); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-.anim-pop {
-    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-img {
-    width: 100%;
-    mix-blend-mode: multiply; /* Eltünteti a fehér hátteret */
+  text-align: center;
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: bold;
 }
