@@ -55,8 +55,8 @@ function jatekInditasa(event) {
     // Véletlenszerű kép generálása a gépnek és a játékosnak is a pörgetés alatt
     let randomGep = lista[Math.floor(Math.random() * 3)];
     let randomJatekos = lista[Math.floor(Math.random() * 3)];
-    gepKepElem.src = `kepek/${randomGep}.png`;
-    jatekosKepElem.src = `kepek/${randomJatekos}.png`;
+    gepKepElem.src = `kepek/${randomGep}.PNG`;
+    jatekosKepElem.src = `kepek/${randomJatekos}.PNG`;
   }, 100);
 
   // --- A VÉGLEGES EREDMÉNY MEGJELENÍTÉSE KIS KÉSLELTETÉS UTÁN ---
@@ -76,11 +76,11 @@ function jValasztas(jatekosValasztas) {
 
   // Beállítjuk a JÁTÉKOS tényleges választását
   if (jatekosValasztas == "ko") {
-    jatekosKepElem.src = "kepek/ko.png";
+    jatekosKepElem.src = "kepek/ko.PNG";
   } else if (jatekosValasztas == "papir") {
-    jatekosKepElem.src = "kepek/papir.png";
+    jatekosKepElem.src = "kepek/papir.PNG";
   } else {
-    jatekosKepElem.src = "kepek/ollo.png";
+    jatekosKepElem.src = "kepek/ollo.PNG";
   }
 }
 function gValasztas() {
@@ -90,11 +90,11 @@ function gValasztas() {
   let gTippStr = lista[gTippIndex];
 
   if (gTippStr == "ko") {
-    gepKepElem.src = "kepek/ko.png";
+    gepKepElem.src = "kepek/ko.PNG";
   } else if (gTippStr == "papir") {
-    gepKepElem.src = "kepek/papir.png";
+    gepKepElem.src = "kepek/papir.PNG";
   } else {
-    gepKepElem.src = "kepek/ollo.png";
+    gepKepElem.src = "kepek/ollo.PNG";
   }
   return gTippStr;
 }
