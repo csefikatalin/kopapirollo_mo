@@ -1,13 +1,7 @@
-/* Új játék gombra kattintva megjelenítjük a jéátékteret
-
-1. meg kell fogni a gombot és a játékteret
-2. Rétesszük az eseménykezelőt a gombra
-3. belerjuk a egfelelő html kódot.
-*/
 const lista = ["ko", "papir", "ollo"];
 const ujJatekGomb = document.querySelector("#ujjatek");
 const jatekterElem = document.getElementsByClassName("jatekter");
-console.log(jatekterElem);
+
 ujJatekGomb.addEventListener("click", megjelenit);
 
 function megjelenit() {
@@ -15,7 +9,7 @@ function megjelenit() {
       <div id="gep">
         <h2>A gép tippje</h2>
         <div class="kep">
-          <img src="kepek/placeholder.jpg" alt="kopapriollo" />
+          <img src="kepek/placeholder.jpg" alt="gép placeholder" id="gep-img" />
         </div>
       </div>
       <div id="jatekos">
@@ -26,55 +20,91 @@ function megjelenit() {
           <button id="ollo">O</button>
         </div>
         <div class="kep">
-          <img src="kepek/placeholder.jpg" alt="kopapriollo" />
+          <img src="kepek/placeholder.jpg" alt="játékos placeholder" id="jatekos-img" />
         </div>
       </div>
     `;
   jatekterElem[0].innerHTML = "";
   jatekterElem[0].insertAdjacentHTML("beforeend", htmlKod);
+  
+  // Eseménykezelők rákötése a gombokra
   const jatekGombok = document.querySelectorAll(".gombok button");
-  jatekGombok[0].addEventListener("click", kivalaszt);
-  jatekGombok[1].addEventListener("click", kivalaszt);
-  jatekGombok[2].addEventListener("click", kivalaszt);
+  jatekGombok.forEach(gomb => {
+    gomb.addEventListener("click", jatekInditasa);
+  });
+  
+  document.getElementById("gyoztes").innerText = "";
 }
 
-function kivalaszt(event) {
-  console.log(event.target.id);
-  let jatekosKepElem = document.querySelector("#jatekos img");
-  if (event.target.id == "ko") {
-    jatekosKepElem.src = "kepek/ko.PNG";
-  } else if (event.target.id == "papir") {
-    jatekosKepElem.src = "kepek/papir.PNG";
-  } else {
-    jatekosKepElem.src = "kepek/ollo.PNG";
-  }
-  geptipp(event.target.id);
-}
-function geptipp(jTipp) {
-  let gTipp = Math.floor(Math.random() * 3);
-  console.log(gTipp);
-  console.log(lista[gTipp]);
-  let gepKepElem = document.querySelector("#gep img");
-  if (lista[gTipp] == "ko") {
-    gepKepElem.src = "kepek/ko.PNG";
-  } else if (lista[gTipp] == "papir") {
-    gepKepElem.src = "kepek/papir.PNG";
-  } else {
-    gepKepElem.src = "kepek/ollo.PNG";
-  }
-  ellenorzes(lista[gTipp], jTipp);
+function jatekInditasa(event) {
+  let jatekosValasztas = event.target.id;
+  
+  let jatekosKepElem = document.querySelector("#jatekos-img");
+  let gepKepElem = document.querySelector("#gep-img");
+
+  // Letiltjuk a gombok ismételt kattintását amíg "pörög" a játék
+  const jatekGombok = document.querySelectorAll(".gombok button");
+  jatekGombok.forEach(gomb => gomb.disabled = true);
+
+  // --- KÉPEK VÁLTOGATÁSA (PÖRGÉS) ---
+  // Meghatározzuk, milyen gyakran (pl. minden 100 ezredmásodpercben) váltson képet
+  let porgetoTimer = setInterval(() => {
+    // Véletlenszerű kép generálása a gépnek és a játékosnak is a pörgetés alatt
+    let randomGep = lista[Math.floor(Math.random() * 3)];
+    let randomJatekos = lista[Math.floor(Math.random() * 3)];
+
+    gepKepElem.src = `kepek/${randomGep}.PNG`;
+    jatekosKepElem.src = `kepek/${randomJatekos}.PNG`;
+  }, 100);
+
+  // --- A VÉGLEGES EREDMÉNY MEGJELENÍTÉSE KIS KÉSLELTETÉS UTÁN ---
+  // Pl. 1000 ms (1 másodperc) pörgetés után megállítjuk
+  setTimeout(() => {
+    // Megállítjuk a folyamatos váltogatást
+    clearInterval(porgetoTimer);
+
+    // Beállítjuk a JÁTÉKOS tényleges választását
+    if (jatekosValasztas == "ko") {
+      jatekosKepElem.src = "kepek/ko.PNG";
+    } else if (jatekosValasztas == "papir") {
+      jatekosKepElem.src = "kepek/papir.PNG";
+    } else {
+      jatekosKepElem.src = "kepek/ollo.PNG";
+    }
+
+    // Generáljuk és beállítjuk a GÉP tényleges választását
+    let gTippIndex = Math.floor(Math.random() * 3);
+    let gTippStr = lista[gTippIndex];
+
+    if (gTippStr == "ko") {
+      gepKepElem.src = "kepek/ko.png";
+    } else if (gTippStr == "papir") {
+      gepKepElem.src = "kepek/papir.png";
+    } else {
+      gepKepElem.src = "kepek/ollo.png";
+    }
+
+    // Újra engedélyezzük a gombokat
+    jatekGombok.forEach(gomb => gomb.disabled = false);
+
+    // Ellenőrzés és győztes kiírása
+    ellenorzes(gTippStr, jatekosValasztas);
+
+  }, 1000); // 1000 ms = 1 másodperc pörgetés
 }
 
 function ellenorzes(gTipp, jTipp) {
   const gyozelem = document.getElementById("gyoztes");
+
   let f1 = gTipp == "ko" && jTipp == "papir";
   let f2 = gTipp == "papir" && jTipp == "ollo";
   let f3 = gTipp == "ollo" && jTipp == "ko";
+
   if (gTipp == jTipp) {
-    gyozelem.innerText = "Döntetlen";
+    gyozelem.innerText = "Döntetlen! 🤝";
   } else if (f1 || f2 || f3) {
-    gyozelem.innerText = "Játékos nyert!";
+    gyozelem.innerText = "Gratulálok, a Játékos nyert! 🎉";
   } else {
-    gyozelem.innerText = "A gép nyert!";
+    gyozelem.innerText = "Sajnos a gép nyert! 🤖";
   }
 }
